@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>제로식품 감별 서비스</title>
+    <style>
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .product-info {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #04325f;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">제로식품 감별 서비스</h1>
+        <p>제품명을 입력하여 제로식품의 영양 성분을 확인하세요.</p>
+
+        <!-- 검색 폼 # 서버로 넘기는 방식은 폼 (한줄, 여러줄, 파일 등등) 네트워크 통신에서의 body에 사용자 정보를 입력하여 보낸다. -->
+        <form method="POST" class="mb-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="product_name" class="form-label">제품명</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" required>
+                <!-- product_name = 사용자가 입력한 값의 키값이다. -> product_na = request.POST.get('product_name')에서의 product_name의 값-->
+            </div>
+            <!-- 서버로 보내는 버튼 타입은 submit -->
+            <button type="submit" class="btn btn-primary">조회</button>
+        </form>
+
+
+        <!-- 결과 표시 --> 
+        {% if product_info %} 
+        <!-- = 진짜 템플릿테그로서 뷰파이에서 메모리에 등록한 내용을 html에서 렌더링시켜서 사용자가 볼 수 있도록 한다. -->
+            <div class="product-info">
+                <h4>제품 정보</h4>
+                <p><strong>제품명:</strong> {{ product_info.product_name }}</p>
+                <p><strong>탄수화물:</strong> {{ product_info.carbohydrates }}g</p>
+                <p><strong>단백질:</strong> {{ product_info.protein }}g</p>
+                <p><strong>지방:</strong> {{ product_info.fat }}g</p>
+                <p><strong>나트륨:</strong> {{ product_info.sodium }}mg</p>
+                <p><strong>말티톨:</strong> {{ product_info.maltitol }}g</p>
+                <p><strong>말티톨 시럽:</strong> {{ product_info.maltitol_syrup }}g</p>
+                <p><strong>물엿:</strong> {{ product_info.glucose_syrup }}g</p>
+            </div>
+        {% endif %}
+
+        <!-- 경고 메시지 -->
+        {% if warning %}
+            <div class="warning">
+                {{ warning }}
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
