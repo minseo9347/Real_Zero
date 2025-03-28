@@ -18,6 +18,20 @@
             border-radius: 5px;
             background-color: #f8f9fa;
         }
+        .toggle-btn {
+            background-color: #007bff;
+            color: white;
+            border : 1px solid #04325f;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -39,21 +53,48 @@
 
 
         <!-- 결과 표시 --> 
+        <!-- 결과 표시 -->
         {% if product_info %} 
-        <!-- = 진짜 템플릿테그로서 뷰파이에서 메모리에 등록한 내용을 html에서 렌더링시켜서 사용자가 볼 수 있도록 한다. -->
             <div class="product-info">
                 <h4>제품 정보</h4>
-                <p><strong>제품명:</strong> {{ product_info.product_name }}</p>
-                <p><strong>탄수화물:</strong> {{ product_info.carbohydrates }}g</p>
-                <p><strong>단백질:</strong> {{ product_info.protein }}g</p>
-                <p><strong>지방:</strong> {{ product_info.fat }}g</p>
-                <p><strong>나트륨:</strong> {{ product_info.sodium }}mg</p>
-                <p><strong>말티톨:</strong> {{ product_info.maltitol }}g</p>
-                <p><strong>말티톨 시럽:</strong> {{ product_info.maltitol_syrup }}g</p>
-                <p><strong>물엿:</strong> {{ product_info.glucose_syrup }}g</p>
+                <ul>
+                    <li><strong>제조사명:</strong> {{ product_info.Manufacturer }}</li>
+                    <li><strong>제품명:</strong> {{ product_info.product_name }}</li>
+                    <li><strong>용량:</strong> {{ product_info.Capacity }}g</li>
+                    <li><strong>열량:</strong> {{ product_info.Product_calorific_value }}kcal</li>
+                    <li><strong>탄수화물:</strong> {{ product_info.carbohydrates }}g</li>
+                    <li><strong>단백질:</strong> {{ product_info.protein }}g</li>
+                    <li><strong>지방:</strong> {{ product_info.fat }}g</li>
+                    <li><strong>포화지방:</strong> {{ product_info.saturated_fat }}g</li>
+                    <li><strong>트랜스지방:</strong> {{ product_info.trans_fat }}g</li>
+                    <li><strong>콜레스테롤:</strong> {{ product_info.Cholesterol }}mg</li>
+                    <li><strong>나트륨:</strong> {{ product_info.sodium }}mg</li>
+                    <li><strong>카페인:</strong> {{ product_info.Caffeine }}g</li>
+                    <li><strong>당류:</strong> {{ product_info.sugar }}g</li>
+                    <li><strong>당알콜:</strong> {{ product_info.Sugar_alcohol }}g</li>
+                    <li><strong>말티톨:</strong> {{ product_info.maltitol }}g</li>
+                    <li><strong>말티톨 시럽:</strong> {{ product_info.maltitol_syrup }}g</li>
+                    <li><strong>물엿:</strong> {{ product_info.glucose_syrup }}g</li>
+                    <li><strong>GI 지수:</strong> {{ product_info.GI }}</li>
+                    <li><strong>GL 지수:</strong> {{ product_info.GL }}</li>
+                    <li><strong>"😄,😕":</strong> {{ product_info.emoji }}</li>
+                </ul>
             </div>
         {% endif %}
 
+        {% if product_info %} 
+        <button class="toggle-btn" onclick="toggleDetails()">원재료명 보기</button>
+            <div class="product-info">    <!-- 원재료명 토글 버튼 -->
+
+                <!-- 원재료명 (초기 상태: 숨김) -->
+                <div id="product-details" style="display: none; margin-top: 10px;">
+                    <h4>제품 상세 정보</h4>
+                    <ul>
+                        <li><strong>원재료명:</strong> {{ product_info.Raw_materials }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
         <!-- 경고 메시지 -->
         {% if warning %}
             <div class="warning">
@@ -65,3 +106,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<script>
+    function toggleDetails() {
+        var details = document.getElementById("product-details");
+        var button = document.querySelector(".toggle-btn");
+    
+        if (details.style.display === "none") {
+            details.style.display = "block";
+            button.textContent = "원재료명 숨기기";
+        } else {
+            details.style.display = "none";
+            button.textContent = "원재료명 보기";
+        }
+    }
+    </script>
+
+    
