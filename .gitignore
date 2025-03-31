@@ -172,3 +172,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+ocr-text-extraction_api_key.json
+OCR.ipynb
+my_database_dump.sql

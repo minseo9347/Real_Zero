@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 업로드 - OCR</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">OCR을 위한 이미지 업로드</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'upload_image' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="file" class="form-label">이미지 파일 선택</label>
+                <input type="file" class="form-control" name="file" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">텍스트 추출하기</button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a href="{% url 'Zero_classification' %}" class="btn btn-secondary">홈으로 돌아가기</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional for interactive elements) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

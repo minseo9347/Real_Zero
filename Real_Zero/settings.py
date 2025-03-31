@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Zero_Product'
+    'Zero_Product',
+    'Zero_Productocr_app',
 ]
+
+# 미디어 파일 설정 (업로드된 파일 저장 경로)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
